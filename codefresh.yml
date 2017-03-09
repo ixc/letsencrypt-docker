@@ -1,0 +1,11 @@
+version: '1.0'
+steps:
+  build_image:
+    type: build
+    title: Building Docker Image
+    image_name: interaction/letsencrypt
+  push_image:
+    type: push
+    title: Pushing Docker Image to Registry
+    candidate: '${{build_image}}'
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'

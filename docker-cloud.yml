@@ -1,0 +1,28 @@
+haproxy:
+  image: 'dockercloud/haproxy:1.6.3'
+  environment:
+    - CERT_FOLDER=/etc/letsencrypt/haproxy
+  ports:
+    - '443:443'
+  restart: always
+  roles:
+    - global
+  tags:
+    - haproxy
+    - production
+  volumes_from:
+    - letsencrypt
+letsencrypt:
+  image: 'interaction/letsencrypt:master'
+  environment:
+    - DOMAINS=www.EXAMPLE.COM,foo.EXAMPLE.COM;bar.EXAMPLE.COM
+    - EMAIL=admin@EXAMPLE.COM
+    - HAPROXY_SERVICE_NAME=haproxy
+  ports:
+    - '80:80'
+  restart: always
+  roles:
+    - global
+  tags:
+    - letsencrypt
+    - production
