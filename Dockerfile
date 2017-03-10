@@ -10,7 +10,7 @@ RUN apk update \
         tini \
     && rm -rf /var/cache/apk/*
 
-RUN pip install --no-cache-dir docker-compose python-dockercloud
+RUN pip install --no-cache-dir docker-cloud docker-compose
 
 RUN ln -s /opt/letsencrypt/bin/certbot.sh /etc/periodic/daily/
 
