@@ -30,4 +30,4 @@ If using with HAproxy:
   * Define an `HAPROXY_CONTAINER_NAME=haproxy` environment variable in your
     `letsencrypt` service.
 
-A sample stack file is provided.
+Sample compose and stack files are provided.
