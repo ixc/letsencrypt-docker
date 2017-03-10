@@ -1,0 +1,21 @@
+version: '2'
+services:
+  haproxy:
+    image: 'dockercloud/haproxy:1.6.3'
+    environment:
+      - CERT_FOLDER=/etc/letsencrypt/haproxy
+    ports:
+      - '443'
+    volumes_from:
+      - letsencrypt
+  letsencrypt:
+    build: .
+    image: 'interaction/letsencrypt:local'
+    environment:
+      - DOMAINS=www.EXAMPLE.COM,foo.EXAMPLE.COM;bar.EXAMPLE.COM
+      - EMAIL=admin@EXAMPLE.COM
+      - HAPROXY_CONTAINER_NAME=haproxy
+    ports:
+      - '80'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
