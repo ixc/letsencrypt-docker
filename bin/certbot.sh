@@ -28,7 +28,7 @@ if [[ -n "${UPDATED+1}" && -n "$HAPROXY_SERVICE_NAME" ]]; then
 	cd /etc/letsencrypt/live
 	mkdir -p /etc/letsencrypt/haproxy
 	for domain in *; do
-		cat privkey.pem fullchain.pem > "/etc/letsencrypt/haproxy/$domain.pem"
+		cat "$domain/privkey.pem" "$domain/fullchain.pem" > "/etc/letsencrypt/haproxy/$domain.pem"
 	done
 	docker-cloud exec "$HAPROXY_SERVICE_NAME" /reload.sh
 fi
