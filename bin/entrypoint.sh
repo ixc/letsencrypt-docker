@@ -16,4 +16,4 @@ if [[ -n "$VERSION" ]]; then
 	export DOCKER_API_VERSION="$VERSION"
 fi
 
-exec "$@"
+exec "${@:-bash}"
