@@ -17,7 +17,7 @@ letsencrypt:
   environment:
     - DOMAINS=www.EXAMPLE.COM,foo.EXAMPLE.COM;bar.EXAMPLE.COM
     - EMAIL=admin@EXAMPLE.COM
-    - HAPROXY_SERVICE_NAME=haproxy
+    - HAPROXY_CONTAINER_NAME=haproxy
   ports:
     - '80:80'
   restart: always
@@ -26,3 +26,5 @@ letsencrypt:
   tags:
     - letsencrypt
     - production
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock

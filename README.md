@@ -27,7 +27,7 @@ If using with HAproxy:
   * Define a `CERT_FOLDER=/etc/letsencrypt/haproxy` environment variable in
     your `haproxy` service.
 
-  * Define an `HAPROXY_SERVICE_NAME=haproxy` environment variable in your
+  * Define an `HAPROXY_CONTAINER_NAME=haproxy` environment variable in your
     `letsencrypt` service.
 
 A sample stack file is provided.

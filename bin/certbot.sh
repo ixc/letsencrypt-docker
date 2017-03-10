@@ -24,9 +24,9 @@ for DOMAINS in "${CERTS[@]}"; do
 done
 
 # Combine private key and full certificate chain for HAproxy and restart.
-if [[ -n "${UPDATED+1}" && -n "$HAPROXY_SERVICE_NAME" ]]; then
+if [[ -n "${UPDATED+1}" && -n "$HAPROXY_CONTAINER_NAME" ]]; then
 	for domain in *; do
 		cat "/etc/letsencrypt/live/$domain/privkey.pem" "/etc/letsencrypt/live/$domain/fullchain.pem" > "/etc/letsencrypt/haproxy/$domain.pem"
 	done
-	docker-cloud exec "$HAPROXY_SERVICE_NAME" /reload.sh
+	docker exec $(docker ps -f name="$HAPROXY_CONTAINER_NAME" -q) /reload.sh
 fi
