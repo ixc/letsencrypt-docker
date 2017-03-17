@@ -9,7 +9,7 @@ for var in DOMAINS EMAIL; do
     }
 done
 
-VERSION=$(docker version 2>&1 >/dev/null | grep 'Error response from daemon: client is newer than server')
+VERSION=$(docker version 2>&1 >/dev/null | grep 'Error response from daemon: client is newer than server') || true  # Don't exit if grep fails
 if [[ -n "$VERSION" ]]; then
 	VERSION="${VERSION#*server API version: }"
 	VERSION="${VERSION%)*}"
