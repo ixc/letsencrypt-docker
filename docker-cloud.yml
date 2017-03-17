@@ -17,7 +17,6 @@ letsencrypt:
   environment:
     - DOMAINS=www.EXAMPLE.COM,foo.EXAMPLE.COM;bar.EXAMPLE.COM
     - EMAIL=admin@EXAMPLE.COM
-    - HAPROXY_CONTAINER_NAME=haproxy
   ports:
     - '80:80'
   restart: always
