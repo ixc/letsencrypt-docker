@@ -24,13 +24,13 @@ for DOMAINS in "${CERTS[@]}"; do
 done
 
 # Combine private key and full certificate chain for HAproxy and restart.
-if [[ -n "${UPDATED+1}" ]]; then
+if [[ -n "${UPDATED+1}" && -n "${HAPROXY_IMAGE+1}" ]]; then
 	cd /etc/letsencrypt/live
 	mkdir -p /etc/letsencrypt/haproxy
 	for domain in *; do
 		cat "$domain/privkey.pem" "$domain/fullchain.pem" > "/etc/letsencrypt/haproxy/$domain.pem"
 	done
-	for container in $(docker ps -f status=running -f volume=/etc/letsencrypt -q); do
+	for container in $(docker ps -f ancestor="$HAPROXY_IMAGE" -f status=running -f volume=/etc/letsencrypt -q); do
 		docker exec "$container" /reload.sh
 	done
 fi

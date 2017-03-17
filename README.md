@@ -27,4 +27,7 @@ If using with HAproxy:
   * Define a `CERT_FOLDER=/etc/letsencrypt/haproxy` environment variable in
     your `haproxy` service.
 
+  * Define an `HAPROXY_IMAGE=dockercloud/haproxy:1.6.3` environment variable in
+  	your `letsencrypt` service.
+
 Sample compose and stack files are provided.
