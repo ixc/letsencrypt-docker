@@ -14,6 +14,12 @@ In your `letsencrypt` service:
   * Define a `DOMAINS` environment variable. Certificates are separated by
     newline or semi-colon (`;`) and domains are separated by comma (`,`).
 
+    Note that Let's Encrypt has a limit of 20 certificates per registered
+    domain per week, and 100 names per certificate. You should combine
+    subdomains into a single certificat, wherever possible.
+
+    See: https://letsencrypt.org/docs/rate-limits/
+
   * Define an `EMAIL` environment variable. It will be used for all
     certificates.
 
