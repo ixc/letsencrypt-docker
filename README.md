@@ -12,7 +12,7 @@ The `interaction/letsencrypt` image will:
 In your `letsencrypt` service:
 
   * Define a `DOMAINS` environment variable. Certificates are separated by
-    semi-colon (;) and domains are separated by comma (,).
+    newline or semi-colon (`;`) and domains are separated by comma (`,`).
 
   * Define an `EMAIL` environment variable. It will be used for all
     certificates.

@@ -16,4 +16,7 @@ if [[ -n "$VERSION" ]]; then
 	export DOCKER_API_VERSION="$VERSION"
 fi
 
+# Convert newline separator to semi-colon for consistency.
+export DOMAINS=${DOMAINS//'\n'/;}
+
 exec "${@:-bash}"
