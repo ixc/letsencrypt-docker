@@ -10,6 +10,9 @@ for var in DOMAINS EMAIL; do
     }
 done
 
+# Create required directory.
+mkdir -p /etc/letsencrypt/haproxy
+
 # Work around Docker API version mismatch.
 VERSION=$(docker version 2>&1 >/dev/null | grep 'Error response from daemon: client is newer than server') || true  # Don't exit if grep fails
 if [[ -n "$VERSION" ]]; then
