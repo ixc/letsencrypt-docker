@@ -30,7 +30,12 @@ If using with HAproxy:
 
   * Add `volumes_from: letsencrypt` to your `haproxy` service.
 
+  * Define a `DEFAULT_SSL_CERT` environment variable to enable SSL termination.
+    You can use a self signed certificate for this. It will only be used if no
+    other certificates match.
+
   * Define an `HAPROXY_IMAGE=dockercloud/haproxy:1.6.3` environment variable in
     your `letsencrypt` service.
 
-Sample compose and stack files are provided.
+Sample compose and stack files are provided, including a wildcard self signed
+default certificate.
