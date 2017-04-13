@@ -1,6 +1,6 @@
 haproxy:
   environment:
-    - | # openssl req -x509 -newkey rsa:2048 -keyout cert0.pem -out cert0.pem -nodes -subj '/CN=*'
+    - |
       DEFAULT_SSL_CERT=-----BEGIN RSA PRIVATE KEY-----
       MIIEpQIBAAKCAQEA3cp1UqMNJMWoHsFXWYGV080Rg8jLnhLMRFYHuF8ER56TOEi0
       YAkEQ0uuhDzmeqjfOBWvq7UN0n/EQ1RkLaILp+De01qC4DpsEi9fa47OlSYnkffL
