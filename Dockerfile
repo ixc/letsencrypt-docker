@@ -15,6 +15,8 @@ RUN ln -s /opt/letsencrypt/bin/certbot.sh /etc/periodic/daily/
 ENV PATH="/opt/letsencrypt/bin:$PATH"
 
 EXPOSE 80
+
+VOLUME /certs
 VOLUME /etc/letsencrypt
 
 ENTRYPOINT ["tini", "--", "entrypoint.sh"]

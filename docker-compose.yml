@@ -2,8 +2,6 @@ version: '2'
 services:
   haproxy:
     image: 'dockercloud/haproxy:1.6.3'
-    environment:
-      - CERT_FOLDER=/etc/letsencrypt/haproxy
     ports:
       - '443'
     volumes_from:

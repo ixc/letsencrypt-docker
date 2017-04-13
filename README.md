@@ -30,9 +30,6 @@ If using with HAproxy:
 
   * Add `volumes_from: letsencrypt` to your `haproxy` service.
 
-  * Define a `CERT_FOLDER=/etc/letsencrypt/haproxy` environment variable in
-    your `haproxy` service.
-
   * Define an `HAPROXY_IMAGE=dockercloud/haproxy:1.6.3` environment variable in
   	your `letsencrypt` service.
 

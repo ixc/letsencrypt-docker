@@ -27,7 +27,7 @@ done
 if [[ -n "${UPDATED+1}" && -n "${HAPROXY_IMAGE+1}" ]]; then
 	cd /etc/letsencrypt/live
 	for domain in *; do
-		cat "$domain/privkey.pem" "$domain/fullchain.pem" > "/etc/letsencrypt/haproxy/$domain.pem"
+		cat "$domain/privkey.pem" "$domain/fullchain.pem" > "/certs/$domain.pem"
 	done
 	for container in $(docker ps -f ancestor="$HAPROXY_IMAGE" -f status=running -f volume=/etc/letsencrypt -q); do
 		docker exec "$container" /reload.sh
