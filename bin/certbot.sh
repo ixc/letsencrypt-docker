@@ -26,6 +26,7 @@ cd /etc/letsencrypt/live
 for domain in *; do
 	cat "$domain/privkey.pem" "$domain/fullchain.pem" > "/certs/$domain.pem"
 done
+
 # Reload HAproxy.
 if [[ -n "${HAPROXY_IMAGE+1}" ]]; then
 	for container in $(docker ps -f ancestor="$HAPROXY_IMAGE" -f status=running -f volume=/etc/letsencrypt -q); do
