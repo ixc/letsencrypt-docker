@@ -17,7 +17,7 @@ ENV PATH="/opt/letsencrypt/bin:$PATH"
 EXPOSE 80
 VOLUME /etc/letsencrypt
 
-ENTRYPOINT ["tini", "--", "entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "entrypoint.sh"]
 CMD ["run.sh"]
 
 COPY . /opt/letsencrypt/
