@@ -26,6 +26,11 @@ In your `letsencrypt` service:
   * Define an `OPTIONS` environment variable, if you want to pass additional
     arguments to `certbot` (e.g. `--staging`).
 
+  * Define an `NGINX_PROXY_PASS=1` environment variable, if you want to access
+  	your sites over HTTP instead of redirecting to HTTPS. For example, if you
+  	are unable to generate certificates because Let's Encrypt is down or your
+  	account is rate limited.
+
 If using with HAproxy:
 
   * Add `volumes_from: letsencrypt` to your `haproxy` service.
