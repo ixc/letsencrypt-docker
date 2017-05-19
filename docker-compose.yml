@@ -64,4 +64,5 @@ services:
     ports:
       - '80'
     volumes:
+      - .:/opt/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
