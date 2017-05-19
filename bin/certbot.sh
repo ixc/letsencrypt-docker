@@ -18,7 +18,7 @@ for DOMAINS in "${CERTS[@]}"; do
 		--noninteractive \
 		--webroot \
 		--webroot-path /opt/www \
-		$OPTIONS
+		$OPTIONS || true  # Don't exit if a single certificate fails
 done
 
 # Combine private key and full certificate chain for HAproxy.
