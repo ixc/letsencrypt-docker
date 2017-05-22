@@ -4,8 +4,22 @@ steps:
     type: build
     title: Building Docker Image
     image_name: interaction/letsencrypt
-  push_image:
-    type: push
-    title: Pushing Docker Image to Registry
+  push_image_branch_tag:
+    title: Pushing Docker Image to Registry (branch tag)
     candidate: '${{build_image}}'
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+    type: push
+  push_image_commit_tag:
+    title: Pushing Docker Image to Registry (commit tag)
+    candidate: '${{build_image}}'
+    tag: '${{CF_REVISION}}'
+    type: push
+  push_image_latest_tag:
+    title: Pushing Docker Image to Registry (latest tag)
+    candidate: '${{build_image}}'
+    tag: latest
+    type: push
+    when:
+      branch:
+        only:
+          - master
