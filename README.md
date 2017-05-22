@@ -12,7 +12,13 @@ The `interaction/letsencrypt` image will:
 In your `letsencrypt` service:
 
   * Define a `DOMAINS` environment variable. Certificates are separated by
-    semi-colon (;) and domains are separated by comma (,).
+    newline or semi-colon (`;`) and domains are separated by comma (`,`).
+
+    Note that Let's Encrypt has a limit of 20 certificates per registered
+    domain per week, and 100 names per certificate. You should combine
+    subdomains into a single certificat, wherever possible.
+
+    See: https://letsencrypt.org/docs/rate-limits/
 
   * Define an `EMAIL` environment variable. It will be used for all
     certificates.
@@ -20,14 +26,23 @@ In your `letsencrypt` service:
   * Define an `OPTIONS` environment variable, if you want to pass additional
     arguments to `certbot` (e.g. `--staging`).
 
+  * Define an `NGINX_PROXY_PASS=1` environment variable, if you want to access
+  	your sites over HTTP instead of redirecting to HTTPS. For example, if you
+  	are unable to generate certificates because Let's Encrypt is down or your
+  	account is rate limited.
+
 If using with HAproxy:
 
   * Add `volumes_from: letsencrypt` to your `haproxy` service.
 
-  * Define a `CERT_FOLDER=/etc/letsencrypt/haproxy` environment variable in
-    your `haproxy` service.
+  * Define a `DEFAULT_SSL_CERT` environment variable to enable SSL termination.
+    You can use a self signed certificate for this. It will only be used if no
+    other certificates match.
 
-  * Define an `HAPROXY_CONTAINER_NAME=haproxy` environment variable in your
-    `letsencrypt` service.
+        $ openssl req -x509 -newkey rsa:2048 -keyout cert0.pem -out cert0.pem -nodes -subj '/CN=*'
 
-Sample compose and stack files are provided.
+  * Define an `HAPROXY_IMAGE=dockercloud/haproxy:1.6.3` environment variable in
+    your `letsencrypt` service.
+
+Sample compose and stack files are provided, including a wildcard self signed
+default certificate.

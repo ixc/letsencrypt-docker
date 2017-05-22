@@ -10,25 +10,26 @@ CERTS=(${DOMAINS//;/ })
 
 # Create or renew certificates.
 for DOMAINS in "${CERTS[@]}"; do
-	if certbot certonly \
-			--agree-tos \
-			--domains "$DOMAINS" \
-			--email "$EMAIL" \
-			--expand \
-			--noninteractive \
-			--webroot \
-			--webroot-path /opt/www \
-			$OPTIONS; then
-		UPDATED=1
-	fi
+	certbot certonly \
+		--agree-tos \
+		--domains "$DOMAINS" \
+		--email "$EMAIL" \
+		--expand \
+		--noninteractive \
+		--webroot \
+		--webroot-path /opt/www \
+		$OPTIONS || true  # Don't exit if a single certificate fails
 done
 
-# Combine private key and full certificate chain for HAproxy and restart.
-if [[ -n "${UPDATED+1}" && -n "$HAPROXY_CONTAINER_NAME" ]]; then
-	cd /etc/letsencrypt/live
-	mkdir -p /etc/letsencrypt/haproxy
-	for domain in *; do
-		cat "$domain/privkey.pem" "$domain/fullchain.pem" > "/etc/letsencrypt/haproxy/$domain.pem"
+# Combine private key and full certificate chain for HAproxy.
+cd /etc/letsencrypt/live
+for domain in *; do
+	cat "$domain/privkey.pem" "$domain/fullchain.pem" > "/certs/$domain.pem"
+done
+
+# Reload HAproxy.
+if [[ -n "${HAPROXY_IMAGE+1}" ]]; then
+	for container in $(docker ps -f ancestor="$HAPROXY_IMAGE" -f status=running -f volume=/etc/letsencrypt -q); do
+		docker exec "$container" /reload.sh
 	done
-	docker exec $(docker ps -f name="$HAPROXY_CONTAINER_NAME" -q) /reload.sh
 fi
