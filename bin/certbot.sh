@@ -2,6 +2,11 @@
 
 set -e
 
+# Load environment variables set by Docker
+if [ -e /opt/letsencrypt/global.env ]; then
+	. /opt/letsencrypt/global.env
+fi
+
 mkdir -p /opt/www
 
 # Certificates are separated by semi-colon (;). Domains on each certificate are
