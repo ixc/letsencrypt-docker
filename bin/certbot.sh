@@ -3,8 +3,8 @@
 set -e
 
 # Load environment variables set by Docker
-if [ -e /opt/letsencrypt/global.env ]; then
-	. /opt/letsencrypt/global.env
+if [ -e /opt/letsencrypt/etc/global.env ]; then
+	. /opt/letsencrypt/etc/global.env
 fi
 
 mkdir -p /opt/www
