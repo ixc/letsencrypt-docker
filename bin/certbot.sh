@@ -9,8 +9,8 @@ fi
 
 mkdir -p /opt/www
 
-# Certificates are separated by semi-colon (;). Domains on each certificate are
-# separated by comma (,).
+# Certificates are separated by semi-colon (;) or newline. Domains on each
+# certificate are separated by comma (,).
 CERTS=(${DOMAINS//;/ })
 
 # Create or renew certificates.
