@@ -55,7 +55,6 @@ haproxy:
     - global
   tags:
     - haproxy
-    - production
   volumes_from:
     - letsencrypt
 letsencrypt:
@@ -74,6 +73,5 @@ letsencrypt:
     - global
   tags:
     - letsencrypt
-    - production
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
