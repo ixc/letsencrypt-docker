@@ -16,7 +16,7 @@ In your `letsencrypt` service:
 
     Note that Let's Encrypt has a limit of 20 certificates per registered
     domain per week, and 100 names per certificate. You should combine
-    subdomains into a single certificat, wherever possible.
+    subdomains into a single certificate, wherever possible.
 
     See: https://letsencrypt.org/docs/rate-limits/
 
