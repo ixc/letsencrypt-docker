@@ -14,6 +14,10 @@ In your `letsencrypt` service:
   * Define a `DOMAINS` environment variable. Certificates are separated by
     newline or semi-colon (`;`) and domains are separated by comma (`,`).
 
+    **NOTE:** When used with HAproxy, the first domain for which a certificate
+    is successfully generated will be used as the default (saved to
+    `/certs/_default.pem`), overriding `DEFAULT_SSL_CERT`.
+
     **NOTE:** Let's Encrypt has a limit of 20 certificates per registered
     domain per week, and 100 names per certificate. You should combine
     subdomains into a single certificate, wherever possible.
