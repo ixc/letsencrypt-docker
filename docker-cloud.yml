@@ -61,7 +61,10 @@ haproxy:
 letsencrypt:
   image: 'interaction/letsencrypt:master'
   environment:
-    - DOMAINS=www.EXAMPLE.COM,foo.EXAMPLE.COM;bar.EXAMPLE.COM
+    - |
+      DOMAINS=
+      EXAMPLE.COM,www.EXAMPLE.COM
+      foo.EXAMPLE.COM
     - EMAIL=admin@EXAMPLE.COM
     - 'HAPROXY_IMAGE=dockercloud/haproxy:1.6.3'
   ports:
