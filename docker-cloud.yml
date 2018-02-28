@@ -50,11 +50,8 @@ haproxy:
   image: 'dockercloud/haproxy:1.6.3'
   ports:
     - '443:443'
-  restart: on-failure
   roles:
     - global
-  tags:
-    - haproxy
   volumes_from:
     - letsencrypt
 letsencrypt:
@@ -68,10 +65,7 @@ letsencrypt:
     - 'HAPROXY_IMAGE=dockercloud/haproxy:1.6.3'
   ports:
     - '80:80'
-  restart: on-failure
   roles:
     - global
-  tags:
-    - letsencrypt
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
