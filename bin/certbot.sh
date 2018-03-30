@@ -42,8 +42,8 @@ for domain in *; do
 done
 
 # Reload HAproxy.
-if [[ -n "${HAPROXY_IMAGE+1}" ]]; then
-	for container in $(docker ps -f ancestor="$HAPROXY_IMAGE" -f status=running -f volume=/etc/letsencrypt -q); do
+if [[ -n "${HAPROXY_RELOAD_LABEL+1}" ]]; then
+	for container in $(docker ps -f label="$HAPROXY_RELOAD_LABEL" -q); do
 		echo "Reloading HAproxy container: $container"
 		docker exec "$container" /reload.sh
 	done

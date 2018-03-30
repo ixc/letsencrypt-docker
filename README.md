@@ -2,10 +2,12 @@
 
 The `interaction/letsencrypt` image will:
 
+  * Redirect HTTP requests to HTTPS.
+
   * Automatically create or renew certificates on startup and daily thereafter.
 
   * Optionally combine private keys and their full certificate chain for
-    HAproxy and restart.
+    HAproxy and restart it.
 
 # Usage
 
@@ -24,20 +26,15 @@ In your `letsencrypt` service:
 
     See: https://letsencrypt.org/docs/rate-limits/
 
-  * Define an `EMAIL` environment variable. It will be used for all
-    certificates.
+  * Define an `EMAIL` environment variable. It will be used for registration
+    and expiration emails for all certificates.
 
   * Define an `OPTIONS` environment variable, if you want to pass additional
     arguments to `certbot` (e.g. `--staging`).
 
-  * Define an `NGINX_PROXY_PASS=1` environment variable, if you want to access
-  	your sites over HTTP instead of redirecting to HTTPS. For example, if you
-  	are unable to generate certificates because Let's Encrypt is down or your
-  	account is rate limited.
+If using with [dockercloud-haproxy](https://github.com/docker/dockercloud-haproxy):
 
-If using with HAproxy:
-
-  * Add `volumes_from: letsencrypt` to your `haproxy` service.
+  * Mount a named volume at `/certs` in both services.
 
   * Define a `DEFAULT_SSL_CERT` environment variable to enable SSL termination.
     You can use a self signed certificate for this. It will only be used if no
@@ -45,8 +42,12 @@ If using with HAproxy:
 
         $ openssl req -x509 -newkey rsa:2048 -keyout cert0.pem -out cert0.pem -nodes -subj '/CN=*'
 
-  * Define an `HAPROXY_IMAGE=dockercloud/haproxy:1.6.3` environment variable in
-    your `letsencrypt` service.
+  * Add a `com.ixc.letsencrypt.haproxy-reload` label to your `haproxy` service,
+    and an `HAPROXY_RELOAD_LABEL=com.ixc.letsencrypt.haproxy-reload`
+    environment variable to your `letsencrypt` service.
+
+    **NOTE:** You can use a different label, it just needs to be the same for
+    both services.
 
 Sample compose and stack files are provided, including a wildcard self signed
 default certificate.

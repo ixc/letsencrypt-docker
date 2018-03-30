@@ -1,6 +1,13 @@
-version: '2'
+version: '3'
 services:
+  networks:
+    haproxy-network:
+      external: true  # docker network create --driver overlay haproxy-network
   haproxy:
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
     environment:
       - |
         DEFAULT_SSL_CERT=-----BEGIN RSA PRIVATE KEY-----
@@ -49,11 +56,16 @@ services:
         s3KYY2u5A8AT6CJoeYFKdB38ydKA0OusVDR/9Ply+30EO8OfCB1jCY8hyXFjGtpb
         HCbQSupHz2fuF5ka
         -----END CERTIFICATE-----
-    image: 'dockercloud/haproxy:1.6.3'
+    image: dockercloud/haproxy
+    labels:
+      - com.ixc.letsencrypt.haproxy-reload
+    networks:
+      - haproxy-network
     ports:
       - '443'
-    volumes_from:
-      - letsencrypt
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - haproxy_certs:/certs
   letsencrypt:
     build: .
     image: 'interaction/letsencrypt:local'
@@ -63,9 +75,12 @@ services:
         EXAMPLE.COM,www.EXAMPLE.COM
         foo.EXAMPLE.COM
       - EMAIL=admin@EXAMPLE.COM
-      - 'HAPROXY_IMAGE=dockercloud/haproxy:1.6.3'
+      - HAPROXY_RELOAD_LABEL=com.ixc.letsencrypt.haproxy-reload
     ports:
       - '80'
     volumes:
       - .:/opt/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
+      - haproxy_certs:/certs
+volumes:
+  haproxy_certs:
