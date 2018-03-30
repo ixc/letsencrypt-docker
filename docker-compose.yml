@@ -62,7 +62,7 @@ services:
     networks:
       - haproxy-network
     ports:
-      - '443'
+      - '443:443'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - haproxy_certs:/certs
@@ -77,7 +77,7 @@ services:
       - EMAIL=admin@EXAMPLE.COM
       - HAPROXY_RELOAD_LABEL=com.ixc.letsencrypt.haproxy-reload
     ports:
-      - '80'
+      - '80:80'
     volumes:
       - .:/opt/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
