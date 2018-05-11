@@ -44,6 +44,6 @@ if [[ -d /etc/letsencrypt/live ]]; then
 
 	# Reload HAproxy.
 	if [[ -n "$HAPROXY_SERVICE_NAME" ]]; then
-		docker service update --force "$HAPROXY_SERVICE_NAME"
+		docker service update --force --quiet "$HAPROXY_SERVICE_NAME"
 	fi
 fi
