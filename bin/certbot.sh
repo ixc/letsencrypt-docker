@@ -43,10 +43,7 @@ if [[ -d /etc/letsencrypt/live ]]; then
 	done
 
 	# Reload HAproxy.
-	if [[ -n "${HAPROXY_RELOAD_LABEL+1}" ]]; then
-		for container in $(docker ps -f label="$HAPROXY_RELOAD_LABEL" -q); do
-			echo "Reloading HAproxy container: $container"
-			docker exec "$container" /reload.sh
-		done
+	if [[ -n "$HAPROXY_SERVICE_NAME" ]]; then
+		docker service update --force "$HAPROXY_SERVICE_NAME"
 	fi
 fi
