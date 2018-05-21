@@ -1,0 +1,12 @@
+version: '3.6'
+services:
+  nginx:
+    build: .
+    image: interaction/acme.sh-nginx:local
+volumes:
+  acme-data:
+    driver: local
+    driver_opts: {}
+  nginx-data:
+    driver: local
+    driver_opts: {}

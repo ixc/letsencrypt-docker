@@ -25,7 +25,6 @@ services:
       - nginx-data:/opt/nginx/www
       - system_haproxy-data:/haproxy
   nginx:
-    build: .
     deploy:
       resources:
         limits:
@@ -36,7 +35,7 @@ services:
     healthcheck:
       test: curl -f http://localhost || exit 1
     hostname: '{{ .Service.Name }}-{{ .Task.Slot }}'
-    image: interaction/acme.sh-nginx:local
+    image: interaction/acme.sh-nginx
     ports:
       - 80:80
     volumes:
