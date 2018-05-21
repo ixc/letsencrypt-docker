@@ -51,6 +51,8 @@ volumes:
     driver_opts:
       perfmode: maxio
     name: 'nginx-data'
+  system_haproxy-data:
+    external: true
 
 # ME_Key=
 # ME_Secret=
