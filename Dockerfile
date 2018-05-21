@@ -4,6 +4,7 @@ RUN apk update \
     && apk upgrade \
     && apk add \
         bash \
+        curl \
         nginx \
         tini \
         wget \
