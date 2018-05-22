@@ -1,3 +1,7 @@
+# DEPRECATED
+
+Please use https://github.com/ixc/ixc-acme.sh, instead.
+
 # Overview
 
 The `interaction/letsencrypt` image will:
