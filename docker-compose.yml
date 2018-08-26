@@ -2,6 +2,7 @@ version: '2'
 services:
   haproxy:
     environment:
+      - CERT_FOLDER=/certs/
       - |
         DEFAULT_SSL_CERT=-----BEGIN RSA PRIVATE KEY-----
         MIIEpQIBAAKCAQEA3cp1UqMNJMWoHsFXWYGV080Rg8jLnhLMRFYHuF8ER56TOEi0
